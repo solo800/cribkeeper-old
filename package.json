@@ -4,6 +4,7 @@
   "description": "Keep track of your cribbage games and long term statistics between players!",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,10 +23,13 @@
   },
   "homepage": "https://github.com/solo800/cribkeeper#readme",
   "dependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "babelify": "^7.3.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "browserify": "^13.1.0",
     "cookie-parser": "^1.4.3",
+    "del": "^2.2.2",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
