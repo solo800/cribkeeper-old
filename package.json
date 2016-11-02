@@ -1,0 +1,49 @@
+{
+  "name": "cribkeeper",
+  "version": "1.0.0",
+  "description": "Keep track of your cribbage games and long term statistics between players!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solo800/cribkeeper.git"
+  },
+  "keywords": [
+    "cribbage",
+    "games",
+    "cards"
+  ],
+  "author": "A.E. Solomon",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/solo800/cribkeeper/issues"
+  },
+  "homepage": "https://github.com/solo800/cribkeeper#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.2",
+    "browserify": "^13.1.0",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2",
+    "jquery": "^3.1.0",
+    "mongodb": "^2.2.5",
+    "mongoose": "^4.6.5",
+    "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "underscore": "^1.8.3",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "devDependencies": {
+    "gulp-jshint": "^2.0.1",
+    "jshint": "^2.9.4",
+    "jshint-stylish": "^2.2.1",
+    "nodemon": "^1.11.0"
+  }
+}
