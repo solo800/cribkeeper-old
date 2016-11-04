@@ -33,11 +33,23 @@ src.jsFiles = [
     src.root + '**/*.js'
 ];
 
+src.fonts = src.root + 'client/fonts/*';
+dist.fonts = dist.root + 'fonts';
+
+gulp.task('clean:fonts', () => {
+    return clean(dist.fonts);
+});
+
+gulp.task('fonts', ['clean:fonts'], () => {
+    return gulp.src(src.fonts)
+        .pipe(gulp.dest(dist.fonts));
+});
+
 gulp.task('clean:sass', () => {
     return clean(dist.clean.sass);
 });
 
-gulp.task('sass', ['clean:sass'], () => {
+gulp.task('sass', ['clean:sass', 'fonts'], () => {
     return gulp.src(src.sass)
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest(dist.sass));
@@ -65,6 +77,8 @@ gulp.task('bundleClient', ['clean:bundle'], () => {
     .bundle()
     .on('error', function (err) {
         console.warn("Error in bundleClient");
+        console.warn(err);
+        console.log('done');
     })
     .pipe(source('main.js'))
     .pipe(gulp.dest(dist.bundle));

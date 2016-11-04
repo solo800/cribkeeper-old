@@ -4,26 +4,105 @@ $pink: #FCCDD3;
 $lightBlue: #BBC4EF;
 $lightGreen: #CCF9DE;
 
-#players {
+$desktopPx: 1080px;
+$mobilePx: 780px;
+// $mobilePx: 420px;
+
+@font-face {
+    font-family: 'josefin_sansregular';
+    src: url('../fonts/josefinsans-regular-webfont.woff2') format('woff2'),
+         url('../fonts/josefinsans-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'josefin_sansregular';
+}
+#content {
     display: flex;
     flex-direction: column;
     width: 100%;
     max-width: 240px;
-    margin: 0 auto;
-    margin-top: 50%;
-    transform: translateY(-50%);
+    margin: 10% auto;
     background-color: $pureBlue;
 
-    .phase > span {
-        width: 33%;
-        text-align: center;
-        display: inline-block;
-        // display: flex;
-        // justify-content: space-around;
+    > div {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &#players {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+
+            > div.player {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                flex-grow: 1;
+            }
+        }
+        &.phaseContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+
+            > * {
+                flex-grow: 1;
+            }
+
+            &.phase {
+                display: flex;
+                flex-direction: row;
+
+                > div {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    width: 33.3%;
+
+                    &.currentPhase {
+                        background-color: $aqua;
+                    }
+                }
+
+            }
+            &.phaseActions {
+                flex-grow: 3;
+
+                > div {
+                    display: none;
+
+                    &.currentPhase {
+                        display: flex;
+                        flex-direction: column;
+
+                        > button {
+                            flex-grow: 1;
+                        }
+                    }
+                }
+            }
+            span, button {
+                font-size: 1.2em;
+                text-align: center;
+                display: inline-block;
+                color: white;
+            }
+        }
+
+        > div {
+            border: 1px solid white;
+        }
     }
-    h1, span {
-        // width: 100%;
-        // text-align: center;
+    h1, h2, span {
         color: white;
+        text-align: center;
+        margin: 0;
     }
 }
+
+@import '_mobile';

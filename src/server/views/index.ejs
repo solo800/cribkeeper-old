@@ -2,32 +2,45 @@
 <html lang="en" ng-app='marketoApp'>
 <head>
     <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>cribkeeper Cribbage game manager and tracker</title>
+
     <link rel="stylesheet" href="css/cribkeeper.css" />
 </head>
 
 <body>
 
-    <div id="players">
-        <div id="playerOne" class="player">
-            <h1>Player 1</h1>
-            <div class="score">
-                <span>0</span>
+    <div id="content">
+        <div id="players">
+            <div id="playerOne" class="player">
+                <h1>Player 1</h1>
+                <div class="score">
+                    <h1>0</h2>
+                </div>
+            </div>
+            <div id="playerTwo" class="player">
+                <h1>Player 2</h1>
+                <div class="score">
+                    <h1>0</h2>
+                </div>
             </div>
         </div>
-        <div id="playerTwo" class="player">
-            <h1>Player 2</h1>
-            <div class="score">
-                <span>0</span>
+        <div class="phaseContainer phase">
+            <div class="currentPhase">
+                <button type="button" data-phase="pregame">Pre-Game</button>
+            </div>
+            <div>
+                <button type="button" data-phase="play">Play</button>
+            </div>
+            <div>
+                <button type="button" data-phase="score">Score</button>
             </div>
         </div>
-        <div class="phase">
-            <span>Pre-Game</span>
-            <span>Play</span>
-            <span>Score</span>
-        </div>
-        <div class="phaseActions">
-            <div data-phase="pregame">
+        <div class="phaseContainer phaseActions">
+            <div class="currentPhase" data-phase="pregame">
                 <button type="button" class="scoreButton">Heels</button>
             </div>
             <div data-phase="play">
