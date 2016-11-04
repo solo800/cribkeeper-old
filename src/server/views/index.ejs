@@ -8,7 +8,46 @@
 
 <body>
 
-    <h1>Here I still am!</h1>
+    <div id="players">
+        <div id="playerOne" class="player">
+            <h1>Player 1</h1>
+            <div class="score">
+                <span>0</span>
+            </div>
+        </div>
+        <div id="playerTwo" class="player">
+            <h1>Player 2</h1>
+            <div class="score">
+                <span>0</span>
+            </div>
+        </div>
+        <div class="phase">
+            <span>Pre-Game</span>
+            <span>Play</span>
+            <span>Score</span>
+        </div>
+        <div class="phaseActions">
+            <div data-phase="pregame">
+                <button type="button" class="scoreButton">Heels</button>
+            </div>
+            <div data-phase="play">
+                <button type="button" class="scoreButton">Pair</button>
+                <button type="button" class="scoreButton">15</button>
+                <button type="button" class="scoreButton">Go</button>
+                <button type="button" class="scoreButton">Run</button>
+                <button type="button" class="scoreButton">31</button>
+            </div>
+            <div data-phase="score">
+                <button type="button" class="scoreButton">15</button>
+                <button type="button" class="scoreButton">Pair</button>
+                <button type="button" class="scoreButton">Pairs Royal</button>
+                <button type="button" class="scoreButton">Pairs Royal</button>
+                <button type="button" class="scoreButton">Pairs Double Royal</button>
+                <button type="button" class="scoreButton">Run</button>
+                <button type="button" class="scoreButton">Double Run</button>
+            </div>
+        </div>
+    </div>
 
     <script src='javascript/main.js'></script>
 </body>

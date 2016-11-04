@@ -1,3 +1,4 @@
+// jshint esversion: 6
 const enVars = require('./src/config/config')(process.env.NODE_ENV);
 const gulp = require('gulp');
 const clean = require('del');
@@ -5,15 +6,16 @@ const babelify = require('babelify');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const sass = require('gulp-sass');
+const jshint = require('gulp-jshint');
 
 const src = {root: './src/'};
 const dist = {root: './dist/'};
 
-src.sass = src.root + 'client/scss/*.scss'
+src.sass = src.root + 'client/scss/*.scss';
 dist.sass = dist.root + 'css';
 
 src.bundle = src.root + 'client/javascript/main.js';
-dist.bundle = dist.root + 'javascript'
+dist.bundle = dist.root + 'javascript';
 src.bundleWatch = [
     './*js',
     src.root + '**/*.js',
@@ -25,6 +27,12 @@ dist.clean = {
     bundle: dist.bundle + '/*.js'
 };
 
+src.jsFiles = [
+    './*.js',
+    src.root + '*.js',
+    src.root + '**/*.js'
+];
+
 gulp.task('clean:sass', () => {
     return clean(dist.clean.sass);
 });
@@ -33,6 +41,14 @@ gulp.task('sass', ['clean:sass'], () => {
     return gulp.src(src.sass)
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest(dist.sass));
+});
+
+gulp.task('jshint', () => {
+    return gulp.src(src.jsFiles)
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish', {
+            verbose: true
+        }));
 });
 
 gulp.task('clean:bundle', () => {
@@ -47,17 +63,22 @@ gulp.task('bundleClient', ['clean:bundle'], () => {
     })
     .transform('babelify', {presets: ['es2015']})
     .bundle()
+    .on('error', function (err) {
+        console.warn("Error in bundleClient");
+    })
     .pipe(source('main.js'))
     .pipe(gulp.dest(dist.bundle));
 });
 
 gulp.task('watch', () => {
     gulp.watch(src.sass, ['sass']);
-    gulp.watch(src.bundleWatch, ['bundleClient'])
+    gulp.watch(src.bundleWatch, ['bundleClient']);
+    gulp.watch(src.jsFiles, ['jshint']);
 });
 
 gulp.task('default', [
     'sass',
+    'jshint',
     'bundleClient',
     'watch'
 ]);
