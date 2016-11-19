@@ -6,6 +6,7 @@ const babelify = require('babelify');
 const browserify = require('browserify');
 const source = require('vinyl-source-stream');
 const sass = require('gulp-sass');
+const autoprefixer = require('gulp-autoprefixer');
 const jshint = require('gulp-jshint');
 
 const src = {root: './src/'};
@@ -13,6 +14,9 @@ const dist = {root: './dist/'};
 
 src.sass = src.root + 'client/scss/*.scss';
 dist.sass = dist.root + 'css';
+
+src.cssVendorPrefixer = dist.root + 'css/*.css';
+dist.cssVendorPrefixer = dist.sass;
 
 src.bundle = src.root + 'client/javascript/main.js';
 dist.bundle = dist.root + 'javascript';
@@ -55,6 +59,15 @@ gulp.task('sass', ['clean:sass', 'fonts'], () => {
         .pipe(gulp.dest(dist.sass));
 });
 
+gulp.task('cssVendorPrefixer', ['sass'], () => {
+    gulp.src(src.cssVendorPrefixer)
+        .pipe(autoprefixer({
+            browsers: ['last 4 versions'],
+            cascade: false
+        }))
+        .pipe(gulp.dest(src.cssVendorPrefixer));
+});
+
 gulp.task('jshint', () => {
     return gulp.src(src.jsFiles)
         .pipe(jshint())
@@ -86,12 +99,14 @@ gulp.task('bundleClient', ['clean:bundle'], () => {
 
 gulp.task('watch', () => {
     gulp.watch(src.sass, ['sass']);
+    gulp.watch(src.sass, ['cssVendorPrefixer']);
     gulp.watch(src.bundleWatch, ['bundleClient']);
     gulp.watch(src.jsFiles, ['jshint']);
 });
 
 gulp.task('default', [
     'sass',
+    'cssVendorPrefixer',
     'jshint',
     'bundleClient',
     'watch'
