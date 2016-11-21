@@ -1,20 +1,21 @@
 @media only screen and (max-width: $mobilePx) {
     body {
         margin: 0;
-        height: 600px;
+    }
+    button, span {
+        font-size: 1em;
     }
     #content {
-        max-width: 100%;
-        height: 100%;
-        margin: 0 auto;
+        flex-direction: column;
+        justify-content: flex-start;
 
         > div {
-            &#players {
-                flex-direction: row;
+            width: 100%;
+            height: 50%;
+            border-width: 0px;
 
-                > div.player {
-                    width: 50%;
-                }
+            &#playerOne {
+                transform: rotate(180deg);
             }
         }
     }

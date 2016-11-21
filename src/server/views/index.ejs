@@ -5,67 +5,74 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <title>cribkeeper Cribbage game manager and tracker</title>
-
-    <link href="css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
-    <link href="css/print.css" media="print" rel="stylesheet" type="text/css" />
-    <!--[if IE]>
-        <link href="css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
-    <![endif]-->
-
     <link rel="stylesheet" href="css/cribkeeper.css" />
 </head>
 
 <body>
 
     <div id="content">
-        <div id="players">
-            <div id="playerOne" class="player">
-                <h1>Player 1</h1>
-                <div class="score">
-                    <h1>0</h2>
-                </div>
+
+        <div id="playerOne">
+            <div class="phaseNav">
+                <button type="button" class="active">Deal</button>
+                <button type="button">Play</button>
+                <button type="button">Score</button>
             </div>
-            <div id="playerTwo" class="player">
-                <h1>Player 2</h1>
-                <div class="score">
-                    <h1>0</h2>
-                </div>
+            <div class="phase active" data-phase="deal">
+                <button type="button">His Heels</button>
             </div>
-        </div>
-        <div class="phaseContainer phase">
-            <div class="currentPhase">
-                <button type="button" data-phase="pregame">Pre-Game</button>
+            <div class="phase" data-phase="play">
+                <button type="button">15</button>
+                <button type="button">31</button>
+                <button type="button">Pair</button>
+                <button type="button">Go</button>
+                <button type="button">Run</button>
             </div>
-            <div>
-                <button type="button" data-phase="play">Play</button>
+            <div class="phase" data-phase="score">
+                <button type="button">15</button>
+                <button type="button">Pair</button>
+                <button type="button">Pairs Royal</button>
+                <button type="button">Pairs Double Royal</button>
+                <button type="button">Run</button>
+                <button type="button">Double Run</button>
             </div>
-            <div>
-                <button type="button" data-phase="score">Score</button>
-            </div>
-        </div>
-        <div class="phaseContainer phaseActions">
-            <div class="currentPhase" data-phase="pregame">
-                <button type="button" class="scoreButton">Heels</button>
-            </div>
-            <div data-phase="play">
-                <button type="button" class="scoreButton">Pair</button>
-                <button type="button" class="scoreButton">15</button>
-                <button type="button" class="scoreButton">Go</button>
-                <button type="button" class="scoreButton">Run</button>
-                <button type="button" class="scoreButton">31</button>
-            </div>
-            <div data-phase="score">
-                <button type="button" class="scoreButton">15</button>
-                <button type="button" class="scoreButton">Pair</button>
-                <button type="button" class="scoreButton">Pairs Royal</button>
-                <button type="button" class="scoreButton">Pairs Royal</button>
-                <button type="button" class="scoreButton">Pairs Double Royal</button>
-                <button type="button" class="scoreButton">Run</button>
-                <button type="button" class="scoreButton">Double Run</button>
+            <div class="playerDetails">
+                <span>Player 1</span>
+                <span id="playerOneScore">0</span>
             </div>
         </div>
+
+        <div id="playerTwo">
+            <div class="phaseNav">
+                <button type="button" class="active">Deal</button>
+                <button type="button">Play</button>
+                <button type="button">Score</button>
+            </div>
+            <div class="phase active" data-phase="deal">
+                <button type="button">His Heels</button>
+            </div>
+            <div class="phase" data-phase="play">
+                <button type="button">Pair</button>
+                <button type="button">15</button>
+                <button type="button">Go</button>
+                <button type="button">Run</button>
+                <button type="button">31</button>
+            </div>
+            <div class="phase" data-phase="score">
+                <button type="button">15</button>
+                <button type="button">Pair</button>
+                <button type="button">Pairs Royal</button>
+                <button type="button">Pairs Double Royal</button>
+                <button type="button">Run</button>
+                <button type="button">Double Run</button>
+            </div>
+            <div class="playerDetails">
+                <span>Player 2</span>
+                <span id="playerTwoScore">0</span>
+            </div>
+        </div>
+
     </div>
 
     <script src='javascript/main.js'></script>
