@@ -24,7 +24,7 @@ button, span {
     font-size: 1.18em;
     letter-spacing: 0.05em;
 }
-button:focus {
+button:focus, input:focus {
     outline: none;
 }
 
@@ -97,6 +97,10 @@ button:focus {
                 padding: 0 5%;
                 box-sizing: border-box;
                 justify-content: space-between;
+
+                input {
+                    width: 47%;
+                }
             }
         }
     }

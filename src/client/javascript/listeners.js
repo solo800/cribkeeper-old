@@ -6,5 +6,9 @@ module.exports = function () {
         $('body').on('click touch', '.phaseNav > button', fn.changePhase);
 
         $('body').on('click touch', '.phase > button', fn.score);
+
+        $('body').on('click touch', '.playerName', fn.changePlayerName);
+
+        $('body').on('click touch', '#content', fn.updatePlayerName);
     });
 };

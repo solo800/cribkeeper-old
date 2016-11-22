@@ -3,7 +3,9 @@ module.exports = function () {
     let lastScore = {
         playerOne: null,
         playerTwo: null
-    };
+    },
+    updatingPlayerName = false;
+
     // Public
     function changePhase () {
         "use strict";
@@ -35,8 +37,6 @@ module.exports = function () {
 
         updateActivePhase($this);
 
-        console.log(lastScore, player, scoreText, score);
-
         if (lastScore[player] === scoreText) {
             score = 1;
         }
@@ -60,11 +60,21 @@ module.exports = function () {
     // Private
     function updateActivePhase (element) {
         "use strict";
-        let activeClass = 'active';
+        let activeClass = 'active',
+            phaseContainer = $(element).closest('.phase'),
+            navButtons = phaseContainer.siblings('.phaseNav').children('button'),
+            dataPhase = phaseContainer.attr('data-phase');
 
-        if (!$(element).closest('.phase').hasClass(activeClass)) {
-            $(element).closest('.phase').siblings('div').removeClass(activeClass);
-            $(element).closest('.phase').addClass(activeClass);
+        if (!phaseContainer.hasClass(activeClass)) {
+            phaseContainer.siblings('div').removeClass(activeClass);
+            phaseContainer.addClass(activeClass);
+            navButtons.removeClass('active');
+
+            navButtons.each(function (i, button) {
+                if (button.innerHTML.toLowerCase() === dataPhase) {
+                    $(button).addClass('active');
+                }
+            });
         }
     }
     // Private
@@ -89,9 +99,81 @@ module.exports = function () {
 
         return score;
     }
+    // Public
+    function changePlayerName () {
+        "use strict";
+        updatingPlayerName = true;
+        let $this = this,
+            input = createElem({
+                tag: 'input',
+                attrs: {
+                    type: 'text',
+                    placeholder: 'Your name here'
+                }
+            });
+
+        $($this).replaceWith(input);
+        $(input).focus();
+    }
+    //Private
+    function createElem (passedArgs = {}) {
+        let defArgs = {
+                tag: 'div',
+                attrs: {},
+                text: ''
+            },
+            args = Object.assign({}, defArgs, passedArgs),
+            elem = document.createElement(args.tag);
+
+        _.each(args.attrs, function (val, attr) {
+            "use strict";
+            elem.setAttribute(attr, val);
+        });
+
+        if ('' !== args.text) {
+            elem.innerHTML = args.text;
+        }
+
+        return elem;
+    }
+    // Public
+    function updatePlayerName (event) {
+        "use strict";
+        window.setTimeout(function () {
+            let clickTarget = event.target,
+                isNotNameInput = true,
+                isNotNameSpan = true,
+                playerNameSelector = '.playerDetails input',
+                player, playerName, playerElem;
+
+            if ('INPUT' === clickTarget.tagName && 1 === $(clickTarget).parent('.playerDetails').length) {
+                isNotNameInput = false;
+            }
+            if ('SPAN' === clickTarget.tagName && true === $(clickTarget).hasClass('playerName')) {
+                isNotNameSpan = false;
+            }
+
+            if (true === updatingPlayerName && true === isNotNameInput) {
+                ['#playerOne', '#playerTwo'].forEach(function (playerId) {
+                    player = $(playerId);
+                    if (1 === player.find(playerNameSelector).length && true === isNotNameSpan) {
+                        playerName = player.find(playerNameSelector).val().trim();
+                        player.find(playerNameSelector).replaceWith(createElem({
+                            tag: 'span',
+                            text: playerName
+                        }));
+                        player = [];
+                        playerName = undefined;
+                    }
+                });
+            }
+        }, 100);
+    }
 
     return {
         changePhase: changePhase,
-        score: score
+        score: score,
+        changePlayerName: changePlayerName,
+        updatePlayerName: updatePlayerName
     };
 };
