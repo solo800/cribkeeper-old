@@ -4,7 +4,7 @@ module.exports = function (node_env) {
             mongoUrl: "Prod mongo"
         },
         "default": {
-            mongoUrl: "mongodb://localhost:27017/ttraction"
+            mongoUrl: "mongodb://localhost:27017/cribkeeper"
         }
     };
 

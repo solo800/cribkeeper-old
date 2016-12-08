@@ -31,6 +31,7 @@ button:focus, input:focus {
 #content {
     display: flex;
     justify-content: space-around;
+    position: relative;
 
     > div {
         border: 1px solid $pureBlue;
@@ -62,12 +63,30 @@ button:focus, input:focus {
                 }
             }
 
-            &.phase {
+            &:not(.phaseNav) {
                 flex-wrap: wrap;
                 justify-content: center;
 
                 &.active button {
                     opacity: 1;
+                }
+
+                &.permanents {
+                    button {
+                        width: 22%;
+                        opacity: 1;
+                        background-color: $pink;
+                        color: red;
+                        border-bottom-width: 1px;
+
+                        &.undo {
+                            transform: scaleX(-1);
+                        }
+
+                        &:hover {
+                            background-color: darken($pink, 8%);
+                        }
+                    }
                 }
 
                 > div {
@@ -93,6 +112,7 @@ button:focus, input:focus {
                     }
                 }
             }
+
             &.playerDetails {
                 padding: 0 5%;
                 box-sizing: border-box;
@@ -102,7 +122,55 @@ button:focus, input:focus {
                     width: 47%;
                 }
             }
+
+            &.actionFeed {
+                justify-content: flex-start;
+
+                > span {
+                    width: 6.25%;
+                    box-shadow: 1px 0px $pureBlue;
+                    opacity: 0.5;
+                    text-align: center;
+
+                    &.active {
+                        opacity: 1;
+                        background-color: darken(white, 25%);
+                    }
+                }
+            }
         }
+    }
+}
+#signInContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 2;
+
+    input, button {
+        font-size: 1.2em;
+    }
+    > div > button.signInButton[type=button] {
+        opacity: 1;
+    }
+    > * {
+        margin: 0.5em 0;
+    }
+}
+#screenDimmer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    transition: 0.5s;
+    z-index: 1;
+
+    &.active {
+        background-color: rgba(0, 0, 0, 0.7);
     }
 }
 

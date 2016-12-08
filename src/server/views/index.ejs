@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>cribkeeper Cribbage game manager and tracker</title>
+    <link rel="stylesheet" href="css/bootstrap.css" />
     <link rel="stylesheet" href="css/cribkeeper.css" />
+    <link rel="icon" href="favicon02.ico?v=2" type="image/x-icon">
 </head>
 
 <body>
@@ -20,7 +22,7 @@
                 <button type="button">Score</button>
             </div>
             <div class="phase active" data-phase="deal">
-                <button type="button">His Heels</button>
+                <button type="button">His Knobs</button>
             </div>
             <div class="phase" data-phase="play">
                 <button type="button">15</button>
@@ -36,11 +38,19 @@
                 <button type="button">Pairs Double Royal</button>
                 <button type="button">Run</button>
                 <button type="button">Double Run</button>
+                <button type="button">His Heels</button>
+            </div>
+            <div class="permanents">
+                <button type="button" class="undoRedo undo glyph glyph-share-alt"></button>
+                <button type="button" class="undoRedo redo glyph glyph-share-alt"></button>
+                <button type="button">+1</button>
+                <button type="button">-1</button>
             </div>
             <div class="playerDetails">
                 <span class="playerName">Player 1</span>
                 <span id="playerOneScore">0</span>
             </div>
+            <div class="actionFeed"></div>
         </div>
 
         <div id="playerTwo">
@@ -50,14 +60,14 @@
                 <button type="button">Score</button>
             </div>
             <div class="phase active" data-phase="deal">
-                <button type="button">His Heels</button>
+                <button type="button">His Knobs</button>
             </div>
             <div class="phase" data-phase="play">
-                <button type="button">Pair</button>
                 <button type="button">15</button>
+                <button type="button">31</button>
+                <button type="button">Pair</button>
                 <button type="button">Go</button>
                 <button type="button">Run</button>
-                <button type="button">31</button>
             </div>
             <div class="phase" data-phase="score">
                 <button type="button">15</button>
@@ -66,11 +76,19 @@
                 <button type="button">Pairs Double Royal</button>
                 <button type="button">Run</button>
                 <button type="button">Double Run</button>
+                <button type="button">His Heels</button>
+            </div>
+            <div class="permanents">
+                <button type="button" class="undoRedo undo glyph glyph-share-alt"></button>
+                <button type="button" class="undoRedo redo glyph glyph-share-alt"></button>
+                <button type="button">+1</button>
+                <button type="button">-1</button>
             </div>
             <div class="playerDetails">
                 <span class="playerName">Player 2</span>
                 <span id="playerTwoScore">0</span>
             </div>
+            <div class="actionFeed"></div>
         </div>
 
     </div>

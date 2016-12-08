@@ -1,6 +1,6 @@
 // jshint esversion: 6
-const express = require('express');
-const rootRouter = express.Router();
+const express = require('express'),
+    rootRouter = express.Router();
 
 module.exports = function () {
     // Include services and controllers here

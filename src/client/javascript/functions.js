@@ -17,7 +17,7 @@ module.exports = function () {
             let phaseName = $(this).text().toLowerCase();
 
             // Remove the active classes from the nav buttons and scoring containers
-            $('.phaseNav button').removeClass(activeClass);
+            $(this).siblings('button').removeClass(activeClass);
             $(this).closest('.phaseNav').siblings('.phase').removeClass(activeClass);
 
             // Add the active class to the button that was clicked
@@ -37,20 +37,48 @@ module.exports = function () {
 
         updateActivePhase($this);
 
-        if (lastScore[player] === scoreText) {
+        if ('Run' === lastScore[player] && 'Run' === scoreText) {
             score = 1;
         }
 
-        if ('run' === scoreText) {
-            lastScore[player] = scoreText;
+        lastScore[player] = scoreText;
 
+        if ('Run' === scoreText) {
             window.setTimeout(function () {
-                console.log('clearing', lastScore[player]);
                 lastScore[player] = null;
             }, 1000);
         }
 
         incrementPlayerScore(player, score);
+
+        // $.post('/game', function (response, msg, xhr) {
+        //     console.log('res', response);
+        //     console.log('msg', msg);
+        //     console.log('jq', xhr);
+        // });
+
+        checkForWin();
+    }
+    // Private
+    function checkForWin () {
+        "use strict";
+        const plOneScore = parseInt($('#playerOneScore').text()),
+            plTwoScore = parseInt($('#playerTwoScore').text());
+
+        if (120 <= plOneScore && 120 <= plTwoScore) {
+            displayWin('Uh oh, that isn\'t possible!')
+        } else if (120 <= plOneScore) {
+            displayWin('Player one wins!');
+        } else if (120 <= plTwoScore) {
+            displayWin('Player two wins!');
+        }
+    }
+    // Private display win
+    function displayWin (msg) {
+        "use strict";
+        window.setTimeout(function () {
+            alert(msg);
+        }, 100);
     }
     // Private
     function incrementPlayerScore(player, score) {
@@ -100,27 +128,39 @@ module.exports = function () {
         return score;
     }
     // Public
-    function changePlayerName () {
+    function openSignIn () {
         "use strict";
-        updatingPlayerName = true;
-        let $this = this,
-            input = createElem({
-                tag: 'input',
-                attrs: {
-                    type: 'text',
-                    placeholder: 'Your name here'
-                }
-            });
-
-        $($this).replaceWith(input);
-        $(input).focus();
+        $.get('templates/signInForm', function (res, msg, xhr) {
+            if (200 === xhr.status) {
+                $('#content').append(res);
+                $('body').append(createElem({
+                    tag: 'div',
+                    id: 'screenDimmer'
+                }));
+                window.setTimeout(function () {
+                    $('#screenDimmer').addClass('active');
+                });
+            } else {
+                console.log(msg, xhr);
+            }
+        });
     }
-    //Private
+    //Public
+    /**
+     * @var passedArgs Object
+     * passedArgs.tag String
+     * passedArgs.attrs Object
+     * passedArgs.text String
+     * passedArgs.id String
+     * passedArgs.classes String
+     **/
     function createElem (passedArgs = {}) {
         let defArgs = {
                 tag: 'div',
                 attrs: {},
-                text: ''
+                text: '',
+                id: '',
+                classes: ''
             },
             args = Object.assign({}, defArgs, passedArgs),
             elem = document.createElement(args.tag);
@@ -133,47 +173,22 @@ module.exports = function () {
         if ('' !== args.text) {
             elem.innerHTML = args.text;
         }
+        if ('' !== args.classes) {
+            elem.setAttribute('class', args.classes);
+        }
+        if ('' !== args.id) {
+            elem.setAttribute('id', args.id);
+        }
 
         return elem;
-    }
-    // Public
-    function updatePlayerName (event) {
-        "use strict";
-        window.setTimeout(function () {
-            let clickTarget = event.target,
-                isNotNameInput = true,
-                isNotNameSpan = true,
-                playerNameSelector = '.playerDetails input',
-                player, playerName, playerElem;
-
-            if ('INPUT' === clickTarget.tagName && 1 === $(clickTarget).parent('.playerDetails').length) {
-                isNotNameInput = false;
-            }
-            if ('SPAN' === clickTarget.tagName && true === $(clickTarget).hasClass('playerName')) {
-                isNotNameSpan = false;
-            }
-
-            if (true === updatingPlayerName && true === isNotNameInput) {
-                ['#playerOne', '#playerTwo'].forEach(function (playerId) {
-                    player = $(playerId);
-                    if (1 === player.find(playerNameSelector).length && true === isNotNameSpan) {
-                        playerName = player.find(playerNameSelector).val().trim();
-                        player.find(playerNameSelector).replaceWith(createElem({
-                            tag: 'span',
-                            text: playerName
-                        }));
-                        player = [];
-                        playerName = undefined;
-                    }
-                });
-            }
-        }, 100);
     }
 
     return {
         changePhase: changePhase,
         score: score,
-        changePlayerName: changePlayerName,
-        updatePlayerName: updatePlayerName
+        openSignIn: openSignIn,
+        // changePlayerName: changePlayerName,
+        // updatePlayerName: updatePlayerName,
+        createElem: createElem
     };
 };

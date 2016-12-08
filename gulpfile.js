@@ -12,39 +12,46 @@ const jshint = require('gulp-jshint');
 const src = {root: './src/'};
 const dist = {root: './dist/'};
 
-src.sass = src.root + 'client/scss/*.scss';
-dist.sass = dist.root + 'css';
+src.sass = [
+    `${src.root}client/scss/*.scss`,
+    `${src.root}client/libs/**`
+];
+dist.sass = `${dist.root}css`;
 
-src.cssVendorPrefixer = dist.root + 'css/*.css';
+src.cssVendorPrefixer = `${dist.root}css/*.css`;
 dist.cssVendorPrefixer = dist.sass;
 
-src.bundle = src.root + 'client/javascript/main.js';
-dist.bundle = dist.root + 'javascript';
+src.bundle = `${src.root}client/javascript/main.js`;
+dist.bundle = `${dist.root}javascript`;
+
 src.bundleWatch = [
     './*js',
-    src.root + '**/*.js',
-    src.root + '**/*.ejs'
+    `${src.root}**/*.js`,
+    `${src.root}**/*.ejs`
 ];
 
+src.fonts = `${src.root}client/fonts/**`;
+dist.fonts = `${dist.root}fonts`;
+
 dist.clean = {
-    sass: dist.sass + '/*.css',
-    bundle: dist.bundle + '/*.js'
+    sass: `${dist.sass}`,
+    bundle: `${dist.bundle}/*.js`,
+    fonts: dist.fonts
 };
 
 src.jsFiles = [
     './*.js',
-    src.root + '*.js',
-    src.root + '**/*.js'
+    `${src.root}*.js`,
+    `${src.root}**/*.js`
 ];
 
-src.fonts = src.root + 'client/fonts/*';
-dist.fonts = dist.root + 'fonts';
-
 gulp.task('clean:fonts', () => {
-    return clean(dist.fonts);
+    console.log('cleaning', dist.clean.fonts);
+    return clean(dist.clean.fonts);
 });
 
 gulp.task('fonts', ['clean:fonts'], () => {
+    console.log('distributiong', dist.fonts);
     return gulp.src(src.fonts)
         .pipe(gulp.dest(dist.fonts));
 });
